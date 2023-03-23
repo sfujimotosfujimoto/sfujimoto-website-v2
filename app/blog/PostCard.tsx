@@ -32,10 +32,7 @@ export default function PostCard({
       <div className="mt-2 space-x-2 pt-2 pb-4">
         {frontmatter.categories.map((category: any) => (
           <small key={category}>
-            <a
-              href={`/category/${category}/`}
-              className="bg-orange-200 px-2 py-1 transition-colors duration-200 hover:bg-orange-300"
-            >
+            <a href={`/category/${category}/`} className="link-btn">
               {category}
             </a>
           </small>

@@ -32,10 +32,12 @@ export default async function BlogPage() {
   }
 
   return (
-    <>
-      {postsDataList.map((pd) => (
-        <PostCard key={pd.slug} frontmatter={pd} />
-      ))}
-    </>
+    <section aria-label="Blog" className="h-[calc(100vh-var(--header-height))]">
+      <div className="p-4">
+        {postsDataList.map((pd) => (
+          <PostCard key={pd.slug} frontmatter={pd} />
+        ))}
+      </div>
+    </section>
   )
 }

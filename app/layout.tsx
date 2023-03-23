@@ -28,10 +28,8 @@ export default function RootLayout({
       <body className={`${merriweather.className}  bg-stone-100`}>
         <div className="flex min-h-screen flex-col">
           <Navigation />
-          <main className="mt-20 md:mt-0">
-            <div className="container mx-auto h-full max-w-4xl p-4">
-              {children}
-            </div>
+          <main className="mt-20 flex grow flex-col md:mt-0">
+            <div className="container mx-auto max-w-4xl grow">{children}</div>
           </main>
         </div>
       </body>

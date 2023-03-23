@@ -16,7 +16,7 @@ export default function SidebarNav({
       id="menu"
       className={`${
         showSidebar ? null : "-translate-x-full"
-      } fixed top-0 left-0 bottom-0 flex max-w-sm  flex-col items-center justify-start overflow-hidden overflow-y-auto border-r bg-white p-6 transition duration-300 ease-in-out`}
+      } fixed top-0 left-0 bottom-0 z-10 flex  max-w-sm flex-col items-center justify-start overflow-hidden overflow-y-auto border-r bg-white p-6 transition duration-300 ease-in-out`}
     >
       <LogoLeft />
 
