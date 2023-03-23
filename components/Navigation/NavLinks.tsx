@@ -17,11 +17,11 @@ export default function NavLinks() {
         Blog
       </a>
       <a
-        href="/tags/"
+        href="/category/"
         data-navlink
         className="mt-4 block text-stone-900 hover:text-orange-500 md:mt-0 md:inline-block"
       >
-        Tags
+        Categories
       </a>
     </div>
   )

@@ -1,5 +1,6 @@
 import { formatDate } from "@/lib/utils"
 import { Frontmatter } from "@/types"
+import { ClockIcon } from "@heroicons/react/24/outline"
 
 export default function PostCard({
   frontmatter,
@@ -16,17 +17,15 @@ export default function PostCard({
       </a>
       {/* end of Title */}
 
-      {/* author and date */}
+      {/* date */}
       <div className="mt-2 flex items-center gap-4">
-        <p>
-          by{" "}
-          <a className="link" href={`/author/${frontmatter.author}/`}>
-            {frontmatter.author}
-          </a>
+        <p className="flex items-center justify-start text-sm text-stone-600 ">
+          <ClockIcon className="mr-1 h-4 w-4" />
+
+          {formatDate(new Date(frontmatter.date))}
         </p>
-        <p>{formatDate(new Date(frontmatter.date))}</p>
       </div>
-      {/* end of author and date */}
+      {/* end of and date */}
 
       {/* Categories */}
       <div className="mt-2 space-x-2 pt-2 pb-4">

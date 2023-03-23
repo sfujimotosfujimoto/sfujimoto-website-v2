@@ -2,19 +2,20 @@ import { Metadata } from "next"
 
 import { getPostFromSlug } from "@/lib/postUtil"
 import { formatDate } from "@/lib/utils"
+import { ClockIcon } from "@heroicons/react/24/outline"
 
-// export async function generateMetadata({
-//   params,
-// }: {
-//   params: any
-// }): Promise<Metadata> {
-//   const { frontmatter } = await getPostFromSlug(params.slug)
+export async function generateMetadata({
+  params,
+}: {
+  params: any
+}): Promise<Metadata> {
+  const { frontmatter } = await getPostFromSlug(params.slug)
 
-//   return {
-//     title: `sfujimoto.xyz | ${frontmatter.title}`,
-//     description: frontmatter.description,
-//   }
-// }
+  return {
+    title: `${frontmatter.title} | sfujimoto.xyz`,
+    description: frontmatter.description,
+  }
+}
 
 export default async function BlogPage({
   params,
@@ -30,17 +31,13 @@ export default async function BlogPage({
     >
       <div className="p-4">
         <h1 className="text-4xl font-bold">{frontmatter.title}</h1>
-        {/* author and date */}
-        <div className="mt-2 flex items-center gap-4">
-          <p>
-            by{" "}
-            <a className="link" href={`/author/${frontmatter.author}/`}>
-              {frontmatter.author}
-            </a>
-          </p>
-          <p>{formatDate(new Date(frontmatter.date))}</p>
-        </div>
-        {/* end of author and date */}
+        {/* date */}
+        <p className="flex items-center justify-start text-sm text-stone-600 ">
+          <ClockIcon className="mr-1 h-4 w-4" />
+
+          {formatDate(new Date(frontmatter.date))}
+        </p>
+        {/* end of date */}
 
         {/* Categories */}
         <div className="mt-2 space-x-2 pt-2 pb-4">

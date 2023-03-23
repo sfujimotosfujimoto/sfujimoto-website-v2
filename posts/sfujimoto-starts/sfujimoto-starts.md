@@ -1,7 +1,6 @@
 ---
 title: "LET'S PROG Starts"
 description: "LET'S PROG starts"
-author: sfs
 date: "2022-08-01"
 categories: ["js", "web"]
 slug: sfujimoto-starts

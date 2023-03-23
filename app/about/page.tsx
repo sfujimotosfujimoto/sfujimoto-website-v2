@@ -1,6 +1,6 @@
-import Image from "next/image"
-
-import sfujimotoPic from "../../public/images/sfujimoto.png"
+export const metadata = {
+  title: "About | sfujimoto.xyz",
+}
 
 export default function AboutPage() {
   return (

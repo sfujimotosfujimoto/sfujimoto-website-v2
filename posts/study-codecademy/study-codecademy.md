@@ -1,7 +1,6 @@
 ---
 title: "Codecademyでプログラミングを学ぼう！"
 description: "Codecademyでプログラミングだけでなく英語も学ぼう！"
-author: sfujimoto
 date: 2022-08-17
 categories: ["js", "HTML", "web"]
 slug: study-codecademy

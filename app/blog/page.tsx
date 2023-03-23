@@ -1,13 +1,12 @@
 import fs from "fs/promises"
 
-import { createPostsDataList, getPostFromSlug } from "@/lib/postUtil"
-import { formatDate } from "@/lib/utils"
+import { createPostsDataList } from "@/lib/postUtil"
 import { Frontmatter } from "@/types"
 
 import PostCard from "./PostCard"
 
 export const metadata = {
-  title: "Blog",
+  title: "Blog | sfujimoto.xyz",
   description: "Blog page",
 }
 
