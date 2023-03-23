@@ -96,6 +96,4 @@ export async function createPostsDataList() {
   )
 
   await fs.writeFile("./data/posts.json", JSON.stringify(postDataList))
-
-  console.log("🚀 lib/postUtil.ts ~ 	🌈 dirs ✨ ", postDataList)
 }

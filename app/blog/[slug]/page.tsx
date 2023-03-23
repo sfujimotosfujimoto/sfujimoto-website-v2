@@ -3,18 +3,18 @@ import { Metadata } from "next"
 import { getPostFromSlug } from "@/lib/postUtil"
 import { formatDate } from "@/lib/utils"
 
-export async function generateMetadata({
-  params,
-}: {
-  params: any
-}): Promise<Metadata> {
-  const { frontmatter } = await getPostFromSlug(params.slug)
+// export async function generateMetadata({
+//   params,
+// }: {
+//   params: any
+// }): Promise<Metadata> {
+//   const { frontmatter } = await getPostFromSlug(params.slug)
 
-  return {
-    title: `sfujimoto.xyz | ${frontmatter.title}`,
-    description: frontmatter.description,
-  }
-}
+//   return {
+//     title: `sfujimoto.xyz | ${frontmatter.title}`,
+//     description: frontmatter.description,
+//   }
+// }
 
 export default async function BlogPage({
   params,
