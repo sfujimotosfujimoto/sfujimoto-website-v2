@@ -1,1 +1,23 @@
-[{"title":"Codecademyでプログラミングを学ぼう！","description":"Codecademyでプログラミングだけでなく英語も学ぼう！","date":"2022-08-17T00:00:00.000Z","categories":["js","HTML","web"],"slug":"study-codecademy"},{"title":"LET'S PROG Starts","description":"LET'S PROG starts","date":"2022-08-01","categories":["js","web"],"slug":"sfujimoto-starts"},{"title":"React - useEffectのdependencyで無限ループ","description":"ESLint が dependency 配列の中にFunctionがないと言うのでFunctionを入れるがBrowser が無限ループしている。","date":"2022-10-11","categories":["js","HTML","web","React","Next.js"],"slug":"react-useeffect"}]
+[
+  {
+    "title": "Codecademyでプログラミングを学ぼう！",
+    "description": "Codecademyでプログラミングだけでなく英語も学ぼう！",
+    "date": "2022-08-17T00:00:00.000Z",
+    "categories": ["js", "HTML", "web"],
+    "slug": "study-codecademy"
+  },
+  {
+    "title": "LET'S PROG Starts",
+    "description": "LET'S PROG starts",
+    "date": "2022-08-01",
+    "categories": ["js", "web"],
+    "slug": "sfujimoto-starts"
+  },
+  {
+    "title": "React - useEffectのdependencyで無限ループ",
+    "description": "ESLint が dependency 配列の中にFunctionがないと言うのでFunctionを入れるがBrowser が無限ループしている。",
+    "date": "2022-10-11",
+    "categories": ["js", "HTML", "web", "React", "Next.js"],
+    "slug": "react-useeffect"
+  }
+]

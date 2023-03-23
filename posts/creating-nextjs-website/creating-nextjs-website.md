@@ -1,4 +1,14 @@
-# Wokring on a Next.js website
+---
+title: "Creating a Next.js Website"
+description: "Creating a Next.js website from scratch"
+date: "2023-03-23"
+categories: ["js", "html", "web", "react", "next.js", "css", "rehype", "remark"]
+slug: creating-nextjs-website
+---
+
+
+Steps that I took to create a simple Next.js website.
+
 
 ## 1. Adding favicon 
 
