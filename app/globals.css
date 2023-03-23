@@ -25,7 +25,54 @@ html {
   }
 }
 
-/* Line numbers */
+/* reImage  */
+
+p.image-container {
+  display: grid;
+  place-items: center;
+}
+p.image-container > img {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* END: reImage */
+
+/* CSS FOR rehypePrism and rehypeCodeTitles */
+
+/* Add Line numbers */
+.line-number::before {
+  font-size: smaller;
+  content: attr(line);
+  margin-left: -8px;
+  padding-right: 16px;
+  color: #989898;
+}
+
+/* Code Title */
+.rehype-code-title {
+  font-family: monospace;
+  font-size: smaller;
+  display: inline-block;
+  background-color: theme("colors.stone.400");
+  padding: 0 1rem;
+  border-radius: 3px;
+}
+
+/* format code title and code block */
+pre:has(> code):has(span.code-line) {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+/* Highlighted line  */
+span.code-line.highlight-line {
+  background-color: rgba(148, 148, 148, 0.3);
+}
+
+/* END: CSS FOR rehypePrism and rehypeCodeTitles */
+
+/*
+ Line numbers
 code {
   counter-reset: line;
 }
@@ -34,7 +81,7 @@ code > .line::before {
   counter-increment: line;
   content: counter(line);
 
-  /* Other styling */
+   Other styling
   display: inline-block;
   width: 1rem;
   margin-right: 2rem;
@@ -49,14 +96,12 @@ code[data-line-numbers-max-digits="2"] > .line::before {
 code[data-line-numbers-max-digits="3"] > .line::before {
   width: 3rem;
 }
-/* END: line numbers */
+END: line numbers
 
-/* Highlighted line  */
+ Highlighted line
 code[data-line-numbers] > .line.highlighted {
   background-color: rgba(33, 69, 127, 0.7);
 }
-
-/* File title for code block */
 div[data-rehype-pretty-code-title] {
   font-family: monospace;
   font-size: smaller;
@@ -66,31 +111,12 @@ div[data-rehype-pretty-code-title] {
   border-radius: 3px;
 }
 
-/* clear margin top for adding file title at the top */
+clear margin top for adding file title at the top
 pre[data-language] {
   margin-top: 0;
 }
 
-/* END: File title */
+END: File title
 
-/* End of Code for rehype-pretty-code */
-
-/* reImage  */
-
-p.image-container {
-  display: grid;
-  place-items: center;
-}
-p.image-container > img {
-  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
-}
-
-/* END: reImage */
-
-.line-number::before {
-  font-size: smaller;
-  content: attr(line);
-  margin-left: -8px;
-  padding-right: 16px;
-  color: #989898;
-}
+End of Code for rehype-pretty-code
+*/

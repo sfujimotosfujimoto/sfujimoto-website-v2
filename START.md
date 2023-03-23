@@ -354,3 +354,16 @@ export const reImage: Plugin<[Options]> = ({ images }) => {
     })
   }
 ```
+
+
+## 11. Deploying to vercel
+
+### PROBLEM
+
+- I got a bug saying that it couldn't find `shiki/themes/rose-pine-moon.json`.
+- Tried to work around it but I couldn't find a fix.
+
+### FIX
+
+- This isn't a fix, but I went back to using `rehype-prism-plus` and `rehype-code-titles`.
+- `rehype-prism-plus` lets you directly import the css file to the root so there wasn't a problem. `rehype-pretty-code` caused a problem after uploading because it had to import the theme json file that it couldn't find after bundle.
