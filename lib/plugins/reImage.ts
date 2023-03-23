@@ -1,283 +1,7 @@
-import path from "path"
-
-import { readFile } from "fs/promises"
-import { glob } from "glob"
-
-import { PostData } from "@/types"
-
-import { markdownToHtml } from "./markdown"
-
 /**
- * getPostFromSlug gets post date from slug
+ * REIMAGE
+ * a rehype plugin for images
  */
-export async function getPostFromSlug(slug: string): Promise<PostData> {
-  try {
-    const data = await getDataFromSlug(slug)
-    const images = await getImagesFromSlug(slug)
-
-    const rawString = Buffer.from(data.content, "base64").toString()
-
-    const { content, frontmatter } = await markdownToHtml(rawString, images)
-
-    return { content, frontmatter, images }
-  } catch (error) {
-    throw new Error(`couldn't fetch data: ${error}`)
-  }
-}
-
-/**
- * Gets all .md files in ./posts > ** > *.md
- */
-export async function getFiles() {
-  const allPaths = await glob("./posts/**/*.md")
-
-  const allPosts = allPaths.map(async (path) => {
-    return await readFile(path, "utf-8")
-  })
-
-  return Promise.all(allPosts)
-}
-
-/**
- * Get all markdown file data from files in ./posts > ** > *.md
- * and parses the data to HTML with frontmatter
- */
-// export async function getPosts() {
-//   const allFiles = await getFiles()
-
-//   return markdownToHtml(allFiles[2])
-// }
-
-async function getDataFromSlug(slug: string, isImage: boolean = false) {
-  try {
-    const response = await fetch(
-      `https://api.github.com/repos/sfujimotosfujimoto/sfujimoto-website-v2/contents/posts/${slug}/${
-        isImage ? "images" : slug + ".md"
-      }`,
-      {
-        headers: {
-          "Content-Type": "application/vnd.github.v3+json",
-          Authorization: `token ${process.env.GH_TOKEN}`,
-        },
-      }
-    )
-    const data = await response.json()
-    return data
-  } catch (error) {
-    throw new Error(`couldn't fetch data: ${error}`)
-  }
-}
-
-/**
- * get images in github from slug
- */
-async function getImagesFromSlug(
-  slug: string
-): Promise<{ [key: string]: string }> {
-  try {
-    const data = (await getDataFromSlug(slug, true)) as {
-      download_url: string
-    }[]
-
-    const images: { [key: string]: string } = {}
-
-    data.forEach((d) => {
-      images[path.basename(d.download_url)] = d.download_url
-    })
-
-    return images
-  } catch (error) {
-    throw new Error(`couldn't fetch imageUrls: ${error}`)
-  }
-}
-
-// export async function createPostsData() {
-//   const dirs = await readdir("./posts")
-//   const dirs2 = await glob("./posts/**")
-
-//   console.log("🚀 lib/postUtil.ts ~ 	🌈 dirs ✨ ", dirs2)
-//   writeFile("./data/posts.json", JSON.stringify({ data: "hello" }), {
-//     encoding: "utf8",
-//     flag: "w",
-//     mode: 0o666,
-//   })
-// }
-
-/*
-
-
-  const response = await fetch(
-    "https://api.github.com/repos/sfujimotosfujimoto/sfujimoto-website-v2/contents/START.md",
-    {
-      headers: {
-        "Content-Type": "application/vnd.github.v3+json",
-        Authorization: `token ${process.env.GH_TOKEN}`,
-      },
-    }
-  )
-
-  const data = await response.json()
-
-  // console.log(
-  //   "🚀 blog/page.tsx ~ 	🌈 data ✨ ",
-  //   Buffer.from(data.content, "base64").toString()
-  // )
-*/
-
-// export async function serializePost(file: string) {
-//   const serialized = await serialize(file, {
-//     parseFrontmatter: true,
-//   })
-//   const frontmatter = serialized.frontmatter
-//   return { frontmatter, serialized }
-// }
-
-// export async function getPosts() {
-//   console.log("in getPosts")
-
-//   const allFiles = await getFiles()
-
-//   const allPosts = allFiles.map(async (file) => {
-//     return await serializePost(file)
-//   })
-
-//   return Promise.all(allPosts)
-// }
-
-// export async function getPostFromSlug(slug: string) {
-//   const allPosts = await getPosts()
-//   return allPosts.find((post) => post.frontmatter.slug === slug)
-// }
-
-/*
-
-
-import path from "path"
-
-import fs from "fs/promises"
-import glob from "glob-promise"
-import matter from "gray-matter"
-import { LanguageFn } from "highlight.js"
-import langJS from "highlight.js/lib/languages/javascript.js"
-import langTS from "highlight.js/lib/languages/typescript"
-import rehypeHighlight from "rehype-highlight"
-import type { Options } from "rehype-highlight"
-import rehypeStringify from "rehype-stringify"
-import remarkGfm from "remark-gfm"
-import remarkParse from "remark-parse"
-import remarkRehype from "remark-rehype"
-import { unified } from "unified"
-
-import { reImage } from "@/lib/markdown/plugins/reImage"
-
-// getMarkdown gets content html and matter data from url slug
-export async function getMarkdown(
-  baseDir: string,
-  slug: string
-): Promise<{
-  contentHtml: string
-  matterResult: matter.GrayMatterFile<string>
-}> {
-  // "data" is the directory where markdown is stored
-
-  // get all md files in baseDir
-  const filePaths = await glob(baseDir + "//.md")
-  // find the single md file that matches the slug
-  const mdPath = getMdFromSlug(filePaths, slug)
-  // get file content from md file
-
-  const fileContents = await fs.readFile(mdPath || "", "utf8")
-  // Use gray-matter to parse the post metadata section
-  const matterResult = matter(fileContents)
-
-  // @note for stop causing warning that .orig is Uint8Array
-  matterResult.orig = String(matterResult.orig)
-  // convert markdown to html with unified
-  const processedContent = await markdownToHtml(matterResult, slug)
-
-  return {
-    contentHtml: processedContent.toString(),
-    matterResult,
-  }
-}
-
-//-------------------------------------------
-// PRIVATE FUNCTIONS
-//-------------------------------------------
-// markdownToHtml gets markdownContent and slug from url and returns html string
-async function markdownToHtml(
-  matterResult: matter.GrayMatterFile<string>,
-  slug: string
-) {
-  const languages: Record<string, LanguageFn> = {
-    javascript: langJS,
-    ts: langTS,
-  }
-
-  const options: Options = {
-    detect: true,
-    languages,
-  }
-  // Use remark to convert markdown into HTML string
-  const processedContent = await processContent(slug, matterResult, options)
-  // get html string
-  const contentHtml = processedContent.toString()
-  return contentHtml
-}
-
-// processContent uses `unified` to parse markdown content to html string
-async function processContent(
-  slug: string,
-  matterResult: matter.GrayMatterFile<string>,
-  options: Options
-) {
-  // Use remark to convert markdown into HTML string
-  const processedContent = await unified()
-    // parse markdown to syntax tree (MAST)
-    .use(remarkParse)
-    .use(remarkGfm)
-    // parse remark system (markdown MAST) to rehype system (HTML HAST)
-    .use(remarkRehype)
-    // .use(rePrac)
-    // parse rehype system to string
-    // add classes to add syntax highlight
-    .use(rehypeHighlight, options)
-    .use(reImage, {
-      rootDir: "images",
-      genreDir: matterResult.data.genre,
-      slugDir: slug,
-      tutorialDir: matterResult.data.tutorialSlug,
-    })
-    // .use(rehypeSanitize)
-    .use(rehypeStringify)
-    .process(matterResult.content)
-  return processedContent
-}
-
-function extractExt(basename: string) {
-  const rgx = new RegExp(`(^(?:(?!_{2}).)[A-Za-z0-9-_]+)(\.)(md)`, "m")
-  const match = basename.match(rgx)
-
-  if (match && match.length >= 1) {
-    return match[1]
-  }
-  return null
-}
-
-function getMdFromSlug(filePaths: string[], slug: string) {
-  return filePaths.find((fp) => {
-    const base = extractExt(path.basename(fp))
-    return base === slug
-  })
-}
-
-
-*/
-
-/*
-
-
-import type { Root } from "hast"
 import type { Plugin } from "unified"
 import { visit } from "unist-util-visit"
 
@@ -285,10 +9,7 @@ import { visit } from "unist-util-visit"
 // PLUGIN FOR REHYPE
 //-------------------------------------------
 type Options = {
-  rootDir: string
-  genreDir: string
-  slugDir: string
-  tutorialDir?: string
+  images: { [key: string]: string }
 }
 
 // merging with unist ElementContent to augment properties
@@ -299,40 +20,36 @@ interface ElementContent {
   type: "element"
 }
 
-// gets <p><img></img></p>
-// strips of the <p></p> from the node
 // changes the tag  to <div><img></img></div>
 // with class "image-container"
 // adds basePath from the given options
-export const reImage: Plugin<[Options]> = (options: Options) => {
-  return (hast: Root) => {
+export const reImage: Plugin<[Options]> = ({ images }) => {
+  return (hast: any) => {
     visit(hast, "element", (node) => {
       const newNode = node
       const imgNode = node.children[0] as ElementContent
 
-      // if (node.tagName === "p" && imgNode.tagName === "img") {
-      //   newNode.tagName = "img"
-      //   newNode.properties.class = "image-container"
-      //   newNode.properties.src = `/${options.rootDir}/${options.genreDir}/${options.slugDir}/${imgNode.properties.src}`
-      // }
+      // checks if parent is <p> and first child is <img>
       if (node.tagName === "p" && imgNode.tagName === "img") {
-        // newNode.tagName = "div"
-        if (newNode.properties) newNode.properties.class = "image-container"
-        if (options.genreDir === "posts") {
-          imgNode.properties.src = `/${options.rootDir}/${options.genreDir}/${options.slugDir}/${imgNode.properties.src}`
-        } else if (options.genreDir === "tutorials") {
-          imgNode.properties.src = `/${options.rootDir}/${options.genreDir}/${options.tutorialDir}/${imgNode.properties.src}`
-        }
+        // TODO: why does it need the below code?
+
+        // if (newNode.properties) newNode.properties.class = "image-container"
+
+        newNode.properties.class = "image-container"
+
+        // convert current url ex. `codedacemy-01.png`
+        // to https://raw.githubusercontent.com/sfujimotosfujimoto/sfujimoto-website-v2/main/posts/study-codecademy/images/codecademy-01.png
+        // by referencing the images object
+        imgNode.properties.src = `${images[imgNode.properties.src]}`
+
+        // update the <img> node to the updated imgNode
         newNode.children = [imgNode]
       }
-
+      // update the old node with the newNode
       Object.assign(node, newNode)
     })
   }
 }
-
-
-*/
 // export const rePrac: Plugin<[Options]> = () => {
 //   return (ast: Root) => {
 //     console.log("ast", ast.children)

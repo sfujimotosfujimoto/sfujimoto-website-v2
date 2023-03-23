@@ -1,5 +1,4 @@
-import { getFiles, getPosts } from "@/lib/postUtil"
-import { formatDate } from "@/lib/utils"
+import { getPostFromSlug } from "@/lib/postUtil"
 
 export const metadata = {
   title: "Blog",
@@ -7,12 +6,15 @@ export const metadata = {
 }
 
 export default async function BlogPage() {
-  const allPosts = await getPosts()
-  console.log("🚀 blog/page.tsx ~ 	🌈 allPosts ✨ ", allPosts)
+  const { content, frontmatter, images } = await getPostFromSlug(
+    // "sfujimoto-starts"
+    "study-codecademy"
+  )
+
   return (
     <div
       className="prose max-w-none"
-      dangerouslySetInnerHTML={{ __html: allPosts.content }}
+      dangerouslySetInnerHTML={{ __html: content }}
     ></div>
   )
 

@@ -7,7 +7,12 @@ import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
 import { unified } from "unified"
 
-export async function markdownToHtml(markdown: string) {
+import { reImage } from "./plugins/reImage"
+
+export async function markdownToHtml(
+  markdown: string,
+  images: { [key: string]: string }
+) {
   const { content, data } = matter(markdown)
 
   const result = await unified()
@@ -25,6 +30,7 @@ export async function markdownToHtml(markdown: string) {
         node.properties.className.push("highlighted")
       },
     })
+    .use(reImage, { images })
     .use(rehypeRaw)
     // convert to html
     .use(rehypeStringify)

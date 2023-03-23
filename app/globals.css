@@ -66,4 +66,16 @@ pre[data-language] {
 
 /* END: File title */
 
-/* End of Code for rehyp-pretty-code */
+/* End of Code for rehype-pretty-code */
+
+/* reImage  */
+
+p.image-container {
+  display: grid;
+  place-items: center;
+}
+p.image-container > img {
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* END: reImage */
