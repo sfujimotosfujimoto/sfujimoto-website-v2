@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/BlogPostLayout.astro
 title: "React - useEffectのdependencyで無限ループ"
 description: "ESLint が dependency 配列の中にFunctionがないと言うのでFunctionを入れるがBrowser が無限ループしている。"
 author: sfujimoto
@@ -7,10 +6,7 @@ date: "2022-10-11"
 categories: ["js", "HTML", "web", "React", "Next.js"]
 slug: react-useeffect
 
-mainImage: "react-useeffect.jpg"
-images: []
-isFeatured: true
-genre: "posts"
+
 ---
 
 ## Problem

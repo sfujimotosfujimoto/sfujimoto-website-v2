@@ -285,3 +285,72 @@ module.exports = {
 ></div>  
 ```
 
+## 9. Set up Github REST API to get .md files and images
+
+- created github personal access token and stored it in `.env`
+
+- retreived data from api
+
+```ts
+async function getDataFromSlug(slug: string, isImage: boolean = false) {
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/sfujimotosfujimoto/sfujimoto-website-v2/contents/posts/${slug}/${slug}.md"
+      }`,
+      {
+        headers: {
+          "Content-Type": "application/vnd.github.v3+json",
+          Authorization: `token ${process.env.GH_TOKEN}`,
+        },
+      }
+    )
+    const data = await response.json()
+    return data
+  } catch (error) {
+    throw new Error(`couldn't fetch data: ${error}`)
+  }
+}
+```
+
+- converted base64 to string
+
+```ts
+const rawString = Buffer.from(data.content, "base64").toString()
+```
+
+
+## 10. Create rehype plugin to process images
+
+- created plugin called `reImage`
+  - this plugin will loop through all element in the tree and look for nodes that have a parent of `<p>` and a first child of `<img>`
+  - when it finds that pair, it will add a class called "image-container" to the `<p>` and change the `<img src=> ` to a url that points to file on github
+  - 
+
+```ts
+export const reImage: Plugin<[Options]> = ({ images }) => {
+  return (hast: any) => {
+    visit(hast, "element", (node) => {
+      const newNode = node
+      const imgNode = node.children[0] as ElementContent
+
+      // checks if parent is <p> and first child is <img>
+      if (node.tagName === "p" && imgNode.tagName === "img") {
+        // TODO: why does it need the below code?
+
+        // if (newNode.properties) newNode.properties.class = "image-container"
+
+        newNode.properties.class = "image-container"
+
+        // convert current url ex. `codedacemy-01.png`
+        // to https://raw.githubusercontent.com/sfujimotosfujimoto/sfujimoto-website-v2/main/posts/study-codecademy/images/codecademy-01.png
+        // by referencing the images object
+        imgNode.properties.src = `${images[imgNode.properties.src]}`
+
+        // update the <img> node to the updated imgNode
+        newNode.children = [imgNode]
+      }
+      // update the old node with the newNode
+      Object.assign(node, newNode)
+    })
+  }
+```

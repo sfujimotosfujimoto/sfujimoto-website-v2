@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/BlogPostLayout.astro
 title: "LET'S PROG Starts"
 description: "LET'S PROG starts"
 author: sfs
@@ -7,10 +6,7 @@ date: "2022-08-01"
 categories: ["js", "web"]
 slug: sfujimoto-starts
 
-mainImage: lets-prog-starts.jpg
-images: ["lets-prog-another.jpg"]
-isFeatured: false
-genre: "posts"
+
 ---
 
 # LET'S PROG WEBSITE starts!

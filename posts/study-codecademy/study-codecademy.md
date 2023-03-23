@@ -1,5 +1,4 @@
 ---
-layout: ../../layouts/BlogPostLayout.astro
 title: "Codecademyでプログラミングを学ぼう！"
 description: "Codecademyでプログラミングだけでなく英語も学ぼう！"
 author: sfujimoto
@@ -7,10 +6,6 @@ date: 2022-08-17
 categories: ["js", "HTML", "web"]
 slug: study-codecademy
 
-image:
-  url: "study-codecademy.png"
-  alt: "Study Codecademy"
-images: []
 ---
 
 # Codecademy でプログラミングだけでなく英語も学ぼう！

@@ -43,3 +43,8 @@ export async function markdownToHtml(
     frontmatter: data,
   }
 }
+
+export async function getMarkdownData(markdown: string) {
+  const { content, data } = matter(markdown)
+  return { content, frontmatter: data }
+}
