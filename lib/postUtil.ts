@@ -29,18 +29,9 @@ export async function getPostFromSlug(slug: string): Promise<PostData> {
 }
 
 /**
- * Gets all .md files in ./posts > ** > *.md
+ * get raw data from slug
+ * data that is in github repository
  */
-export async function getFiles() {
-  const allPaths = await glob("./posts/**/*.md")
-
-  const allPosts = allPaths.map(async (path) => {
-    return await fs.readFile(path, "utf-8")
-  })
-
-  return Promise.all(allPosts)
-}
-
 async function getDataFromSlug(slug: string, isImage: boolean = false) {
   try {
     const response = await fetch(
@@ -54,7 +45,14 @@ async function getDataFromSlug(slug: string, isImage: boolean = false) {
         },
       }
     )
+
+    if (!response.ok) {
+      throw Error(`couldn't fetch data from slug: ${slug}`)
+    }
+
     const data = await response.json()
+    // console.log("🚀 lib/postUtil.ts ~ 	🌈 response ✨ ", data)
+
     return data
   } catch (error) {
     throw new Error(`couldn't fetch data: ${error}`)
@@ -74,7 +72,7 @@ async function getImagesFromSlug(
 
     const images: { [key: string]: string } = {}
 
-    if (data.length === 0) {
+    if (!Array.isArray(data)) {
       return {}
     }
     data.forEach((d) => {
@@ -87,6 +85,9 @@ async function getImagesFromSlug(
   }
 }
 
+/**
+ * create posts.json data from all frontmatter data in .md files
+ */
 export async function createPostsDataList() {
   const mdFiles = await glob("./posts/**/*.md")
 
@@ -99,4 +100,17 @@ export async function createPostsDataList() {
   )
 
   await fs.writeFile("./data/posts.json", JSON.stringify(postDataList))
+}
+
+/**
+ * Gets all .md files in ./posts > ** > *.md
+ */
+async function getFiles() {
+  const allPaths = await glob("./posts/**/*.md")
+
+  const allPosts = allPaths.map(async (path) => {
+    return await fs.readFile(path, "utf-8")
+  })
+
+  return Promise.all(allPosts)
 }

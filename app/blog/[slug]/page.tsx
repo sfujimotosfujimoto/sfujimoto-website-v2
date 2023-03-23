@@ -40,7 +40,7 @@ export default async function BlogPage({
         {/* end of date */}
 
         {/* Categories */}
-        <div className="mt-2 space-x-2 pt-2 pb-4">
+        <div className="mt-2 flex w-full flex-wrap gap-2 pt-2 pb-4">
           {frontmatter.categories.map((category: any) => (
             <small key={category}>
               <a href={`/category/${category}/`} className="link-btn">
