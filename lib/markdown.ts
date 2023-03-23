@@ -1,3 +1,5 @@
+import fs from "fs"
+
 import matter from "gray-matter"
 import rehypePrettyCode from "rehype-pretty-code"
 import rehypeRaw from "rehype-raw"
@@ -24,7 +26,9 @@ export async function markdownToHtml(
     .use(remarkRehype, { allowDangerousHtml: true })
     // add syntax highlight
     .use(rehypePrettyCode, {
-      theme: "rose-pine-moon",
+      theme: JSON.parse(
+        fs.readFileSync("./themes/rose-pine-moon.json", "utf-8")
+      ),
       onVisitHighlightedLine(node) {
         // Each line node by default has `class="line"`.
         node.properties.className.push("highlighted")
