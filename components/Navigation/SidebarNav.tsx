@@ -3,9 +3,16 @@ import Logo from "@/app/Logo"
 import LogoLeft from "./LogoLeft"
 import NavLinks from "./NavLinks"
 
-export default function SidebarNav({ showSidebar }: { showSidebar: boolean }) {
+export default function SidebarNav({
+  showSidebar,
+  handleClick,
+}: {
+  showSidebar: boolean
+  handleClick: () => void
+}) {
   return (
     <nav
+      onClick={handleClick}
       id="menu"
       className={`${
         showSidebar ? null : "-translate-x-full"

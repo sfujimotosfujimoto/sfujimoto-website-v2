@@ -1,10 +1,7 @@
-import { Cormorant } from "next/font/google"
-import Image from "next/image"
-
-import styles from "./page.module.css"
-
-const cormorant = Cormorant({ subsets: ["latin"] })
-
 export default function Home() {
-  return <main className={styles.main}>S Fujimoto</main>
+  return (
+    <div className="grid h-full place-content-center">
+      <h1 className="text-5xl font-bold">s fujimoto</h1>
+    </div>
+  )
 }

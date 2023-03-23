@@ -6,9 +6,7 @@ export default function LogoLeft() {
       <a href="/" aria-label="Go home" className="mr-2">
         <Logo width={50} height={50} />
       </a>
-      <span className="text-2xl font-semibold tracking-tight">
-        sfujimoto.xyz
-      </span>
+      <span className="text-2xl tracking-tight">sfujimoto.xyz</span>
     </div>
   )
 }
