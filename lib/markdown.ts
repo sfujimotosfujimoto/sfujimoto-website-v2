@@ -34,9 +34,9 @@ export async function markdownToHtml(
   const path3 = await glob("/var/task/*")
   console.log('🚀 lib/markdown.ts ~ 	🌈 path3 glob("/var/task/*")✨ ', path3)
 
-  if (!themeFile[0]) {
-    throw new Error("Couldn't get theme file")
-  }
+  // if (!themeFile[0]) {
+  //   throw new Error("Couldn't get theme file")
+  // }
 
   const themeFilePath = "node_modules/shiki/themes/rose-pine-moon.json"
 
