@@ -27,7 +27,7 @@ export default async function BlogPage({
   return (
     <section
       aria-label={params.slug}
-      className="container grid h-[calc(100vh-var(--header-height))]"
+      className="h-[calc(100vh-var(--header-height))] w-full"
     >
       <div className="w-full max-w-5xl p-4">
         <h1 className=" text-4xl font-bold">{frontmatter.title}</h1>
@@ -51,7 +51,7 @@ export default async function BlogPage({
         </div>
         {/* end of Categories */}
       </div>
-      <div className="prose prose-sm w-full max-w-none p-4 sm:prose-base md:prose-lg">
+      <div className="prose prose-sm w-full p-4 sm:prose-base md:prose-lg">
         <div dangerouslySetInnerHTML={{ __html: content }}></div>
       </div>
     </section>
