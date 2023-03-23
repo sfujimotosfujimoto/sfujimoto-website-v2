@@ -38,6 +38,8 @@ export async function markdownToHtml(
     throw new Error("Couldn't get theme file")
   }
 
+  const themeFilePath = "node_modules/shiki/themes/rose-pine-moon.json"
+
   const result = await unified()
     // parse markdown to syntax tree (MAST)
     .use(remarkParse)
@@ -47,7 +49,7 @@ export async function markdownToHtml(
     .use(remarkRehype, { allowDangerousHtml: true })
     // add syntax highlight
     .use(rehypePrettyCode, {
-      theme: JSON.parse(fs.readFileSync(themeFile[0], "utf-8")),
+      theme: JSON.parse(fs.readFileSync(themeFilePath, "utf-8")),
       onVisitHighlightedLine(node) {
         // Each line node by default has `class="line"`.
         node.properties.className.push("highlighted")
