@@ -86,3 +86,11 @@ p.image-container > img {
 }
 
 /* END: reImage */
+
+.line-number::before {
+  font-size: smaller;
+  content: attr(line);
+  margin-left: -8px;
+  padding-right: 16px;
+  color: #989898;
+}

@@ -4,6 +4,8 @@ import path from "path"
 import { glob } from "glob"
 import matter from "gray-matter"
 import rehypePrettyCode from "rehype-pretty-code"
+import rehyptePrism from "rehype-prism-plus"
+import rehypePrism from "rehype-prism-plus"
 import rehypeRaw from "rehype-raw"
 import rehypeStringify from "rehype-stringify"
 import remarkGfm from "remark-gfm"
@@ -67,13 +69,16 @@ export async function markdownToHtml(
     // parse remark system (markdown MAST) to rehype system (HTML HAST)
     .use(remarkRehype, { allowDangerousHtml: true })
     // add syntax highlight
-    .use(rehypePrettyCode, {
-      theme: themeJson as unknown as Theme,
-      onVisitHighlightedLine(node) {
-        // Each line node by default has `class="line"`.
-        node.properties.className.push("highlighted")
-      },
+    .use(rehypePrism, {
+      showLineNumbers: true,
     })
+    // .use(rehypePrettyCode, {
+    //   theme: themeJson as unknown as Theme,
+    //   onVisitHighlightedLine(node) {
+    //     // Each line node by default has `class="line"`.
+    //     node.properties.className.push("highlighted")
+    //   },
+    // })
     .use(reImage, { images })
     .use(rehypeRaw)
     // convert to html
