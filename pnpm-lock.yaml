@@ -15,8 +15,10 @@ specifiers:
   postcss-nesting: ^11.2.1
   prettier: ^2.8.6
   prettier-plugin-tailwindcss: ^0.2.5
+  prismjs: ^1.29.0
   react: 18.2.0
   react-dom: 18.2.0
+  rehype-code-titles: ^1.2.0
   rehype-pretty-code: ^0.9.4
   rehype-prism-plus: ^1.5.1
   rehype-raw: ^6.1.1
@@ -39,8 +41,10 @@ dependencies:
   glob: 9.3.2
   gray-matter: 4.0.3
   next: 13.2.4_biqbaboplfbrettd7655fr4n2y
+  prismjs: 1.29.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  rehype-code-titles: 1.2.0
   rehype-pretty-code: 0.9.4_shiki@0.14.1
   rehype-prism-plus: 1.5.1
   rehype-raw: 6.1.1
@@ -1625,6 +1629,11 @@ packages:
     resolution: {integrity: sha512-nAxA0v8+vXSBDt3AnRUNjyRIQ0rD+ntpbAp4LnPkumc5M9yUbSMa4XDU9Q6etY4f1Wp4bNgvc1yjiZtsTTrSng==}
     dev: false
 
+  /hast/1.0.0:
+    resolution: {integrity: sha512-vFUqlRV5C+xqP76Wwq2SrM0kipnmpxJm7OfvVXpB35Fp+Fn4MV+ozr+JZr5qFvyR1q/U+Foim2x+3P+x9S1PLA==}
+    deprecated: Renamed to rehype
+    dev: false
+
   /hastscript/7.2.0:
     resolution: {integrity: sha512-TtYPq24IldU8iKoJQqvZOuhi5CyCQRAbvDOX0x1eW6rsHSxa/1i2CCiptNTotGHJ3VoHRGmqiv6/D3q113ikkw==}
     dependencies:
@@ -2856,6 +2865,11 @@ packages:
     hasBin: true
     dev: true
 
+  /prismjs/1.29.0:
+    resolution: {integrity: sha512-Kx/1w86q/epKcmte75LNrEoT+lX8pBpavuAbvJWRXar7Hz8jrtF+e3vY751p0R8H9HdArwaCTNDDzHg/ScJK1Q==}
+    engines: {node: '>=6'}
+    dev: false
+
   /prop-types/15.8.1:
     resolution: {integrity: sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==}
     dependencies:
@@ -2935,6 +2949,15 @@ packages:
       call-bind: 1.0.2
       define-properties: 1.2.0
       functions-have-names: 1.2.3
+    dev: false
+
+  /rehype-code-titles/1.2.0:
+    resolution: {integrity: sha512-bSr2YJ0GHbHFarUNDZ3VpcGi9HqjLNrA9Lj3nuyox2aGGLhN53dFP2WJtPRnnRqU/vpbCatIgOYxEvWP1YYKrw==}
+    engines: {node: '>=16'}
+    requiresBuild: true
+    dependencies:
+      hast: 1.0.0
+      unist-util-visit: 4.1.2
     dev: false
 
   /rehype-parse/8.0.4:

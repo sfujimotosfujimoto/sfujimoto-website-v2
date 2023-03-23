@@ -1,3 +1,5 @@
+import "prismjs/themes/prism-tomorrow.min.css"
+
 import "./globals.css"
 
 import { Merriweather } from "next/font/google"

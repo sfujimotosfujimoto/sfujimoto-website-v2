@@ -3,8 +3,8 @@ import path from "path"
 
 import { glob } from "glob"
 import matter from "gray-matter"
+import rehypeCodeTitles from "rehype-code-titles"
 import rehypePrettyCode from "rehype-pretty-code"
-import rehyptePrism from "rehype-prism-plus"
 import rehypePrism from "rehype-prism-plus"
 import rehypeRaw from "rehype-raw"
 import rehypeStringify from "rehype-stringify"
@@ -38,29 +38,6 @@ export async function markdownToHtml(
 ) {
   const { content, data } = matter(markdown)
 
-  const path3 = await glob("/var/task/node_modules/*")
-  console.log(
-    '🚀 lib/markdown.ts ~ 	🌈 path3 glob("/var/task/node_modules")✨ ',
-    path3
-  )
-  const path4 = await glob("/var/task/node_modules/shiki/*")
-  console.log(
-    '🚀 lib/markdown.ts ~ 	🌈 path3 glob("/var/task/node_modules/shiki/*")✨ ',
-    path4
-  )
-  const path5 = await glob("/var/task/node_modules/shiki/themes/*")
-  console.log(
-    '🚀 lib/markdown.ts ~ 	🌈 path3 glob("/var/task/node_modules/shiki/themes/*")✨ ',
-    path5
-  )
-
-  let themeFilePath = "./themes/rose-pine-moon.json"
-  if (process.env.NODE_ENV === "production") {
-    themeFilePath = "/var/task/node_modules/shiki/themes/rose-pine-moon.json"
-  }
-
-  console.log("🚀 lib/markdown.ts ~ 	🌈 themeFilePath ✨ ", themeFilePath)
-
   const result = await unified()
     // parse markdown to syntax tree (MAST)
     .use(remarkParse)
@@ -68,6 +45,7 @@ export async function markdownToHtml(
     .use([remarkGfm])
     // parse remark system (markdown MAST) to rehype system (HTML HAST)
     .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeCodeTitles)
     // add syntax highlight
     .use(rehypePrism, {
       showLineNumbers: true,
@@ -79,6 +57,7 @@ export async function markdownToHtml(
     //     node.properties.className.push("highlighted")
     //   },
     // })
+
     .use(reImage, { images })
     .use(rehypeRaw)
     // convert to html

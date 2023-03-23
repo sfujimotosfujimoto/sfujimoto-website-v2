@@ -19,7 +19,7 @@ ESLint が dependency 配列の中に、`updateState`がないと言うので`up
 しかし、ここで問題が起きる。
 挙動を確認すると、Browser が無限ループに入っている。
 
-```ts {1,3,5,7} showLineNumbers title="myComponent.tsx"
+```ts:myComponent.tsx {1,3,5,7} showLineNumbers
 // MyComponent.tsx
 
 const { state, updateState } = useMyContext()
@@ -41,7 +41,7 @@ Component が re-render される際、function（object も array も同様）�
 
 
 
-```ts {1-3,7} showLineNumbers title="AppContext.tsx"
+```ts:AppContext.tsx {1-3,7} showLineNumbers
 // AppContext.tsx
 export const AppProvider: FC<ProviderProps> = ({ children }) => {
   // useCallbackでFunctionを囲む
