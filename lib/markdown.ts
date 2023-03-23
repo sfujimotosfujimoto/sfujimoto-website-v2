@@ -25,20 +25,13 @@ export async function markdownToHtml(
   images: { [key: string]: string }
 ) {
   const { content, data } = matter(markdown)
-  const themeFile = await glob("./themes/rose-pine-moon.json")
-  console.log("🚀 lib/markdown.ts ~ 	🌈 themeFile ✨ ", themeFile)
 
-  const path1 = path.join(__dirname, "chunks")
-  console.log("🚀 lib/markdown.ts ~ 	🌈 path1 __dirname ✨ ", path1)
+  let themeFilePath = "./themes/rose-pine-moon.json"
+  if (process.env.NODE_ENV === "production") {
+    themeFilePath = "/var/task/node_modules/shiki/themes/rose-pine-moon.json"
+  }
 
-  const path3 = await glob("/var/task/*")
-  console.log('🚀 lib/markdown.ts ~ 	🌈 path3 glob("/var/task/*")✨ ', path3)
-
-  // if (!themeFile[0]) {
-  //   throw new Error("Couldn't get theme file")
-  // }
-
-  const themeFilePath = "node_modules/shiki/themes/rose-pine-moon.json"
+  console.log("🚀 lib/markdown.ts ~ 	🌈 themeFilePath ✨ ", themeFilePath)
 
   const result = await unified()
     // parse markdown to syntax tree (MAST)
