@@ -1,4 +1,5 @@
 import fs from "fs"
+import path from "path"
 
 import matter from "gray-matter"
 import rehypePrettyCode from "rehype-pretty-code"
@@ -27,7 +28,10 @@ export async function markdownToHtml(
     // add syntax highlight
     .use(rehypePrettyCode, {
       theme: JSON.parse(
-        fs.readFileSync("./themes/rose-pine-moon.json", "utf-8")
+        fs.readFileSync(
+          path.resolve(__dirname, "..", "..", "themes/rose-pine-moon.json"),
+          "utf-8"
+        )
       ),
       onVisitHighlightedLine(node) {
         // Each line node by default has `class="line"`.
