@@ -13,6 +13,13 @@ import { unified } from "unified"
 
 import { reImage } from "./plugins/reImage"
 
+/*
+
+🚀 lib/markdown.ts ~ 	🌈 themeFile ✨  []
+🚀 lib/markdown.ts ~ 	🌈 path1 __dirname ✨  /var/task/.next/server/chunks
+🚀 lib/markdown.ts ~ 	🌈 path2 cwd✨  /var/task
+*/
+
 export async function markdownToHtml(
   markdown: string,
   images: { [key: string]: string }
@@ -21,13 +28,11 @@ export async function markdownToHtml(
   const themeFile = await glob("./themes/rose-pine-moon.json")
   console.log("🚀 lib/markdown.ts ~ 	🌈 themeFile ✨ ", themeFile)
 
-  const path1 = path.join(__dirname)
+  const path1 = path.join(__dirname, "chunks")
   console.log("🚀 lib/markdown.ts ~ 	🌈 path1 __dirname ✨ ", path1)
-  const path2 = process.cwd()
-  console.log("🚀 lib/markdown.ts ~ 	🌈 path2 cwd✨ ", path2)
 
-  const path3 = await glob("./*")
-  console.log('🚀 lib/markdown.ts ~ 	🌈 path3 glob("./*")✨ ', path3)
+  const path3 = await glob("/var/task/*")
+  console.log('🚀 lib/markdown.ts ~ 	🌈 path3 glob("/var/task/*")✨ ', path3)
 
   if (!themeFile[0]) {
     throw new Error("Couldn't get theme file")
