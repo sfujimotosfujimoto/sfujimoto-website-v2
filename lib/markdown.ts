@@ -9,6 +9,8 @@ import rehypeStringify from "rehype-stringify"
 import remarkGfm from "remark-gfm"
 import remarkParse from "remark-parse"
 import remarkRehype from "remark-rehype"
+import { Theme } from "shiki"
+import themeJson from "shiki/themes/rose-pine-moon.json"
 import { unified } from "unified"
 
 import { reImage } from "./plugins/reImage"
@@ -18,6 +20,14 @@ import { reImage } from "./plugins/reImage"
 🚀 lib/markdown.ts ~ 	🌈 themeFile ✨  []
 🚀 lib/markdown.ts ~ 	🌈 path1 __dirname ✨  /var/task/.next/server/chunks
 🚀 lib/markdown.ts ~ 	🌈 path2 cwd✨  /var/task
+
+🚀 lib/markdown.ts ~ 	🌈 path3 glob("/var/task/node_modules")✨  [ '/var/task/node_modules/shiki', '/var/task/node_modules/next' ]
+🚀 lib/markdown.ts ~ 	🌈 path3 glob("/var/task/node_modules/shiki/*")✨  [
+  '/var/task/node_modules/shiki/package.json',
+  '/var/task/node_modules/shiki/dist'
+]
+🚀 lib/markdown.ts ~ 	🌈 path3 glob("/var/task/node_modules/shiki/themes/*")✨  []
+🚀 lib/markdown.ts ~ 	🌈 themeFilePath ✨  /var/task/node_modules/shiki/themes/rose-pine-moon.json
 */
 
 export async function markdownToHtml(
@@ -58,7 +68,7 @@ export async function markdownToHtml(
     .use(remarkRehype, { allowDangerousHtml: true })
     // add syntax highlight
     .use(rehypePrettyCode, {
-      theme: JSON.parse(fs.readFileSync(themeFilePath, "utf-8")),
+      theme: themeJson as unknown as Theme,
       onVisitHighlightedLine(node) {
         // Each line node by default has `class="line"`.
         node.properties.className.push("highlighted")
