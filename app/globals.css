@@ -13,7 +13,7 @@ html {
 }
 @layer base {
   a.link {
-    @apply font-semibold underline decoration-sky-200 decoration-2;
+    @apply font-semibold underline decoration-sky-200 decoration-2 transition-all duration-200;
 
     &:hover {
       @apply bg-sky-100 opacity-40;

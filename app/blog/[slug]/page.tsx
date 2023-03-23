@@ -27,10 +27,10 @@ export default async function BlogPage({
   return (
     <section
       aria-label={params.slug}
-      className="grid h-[calc(100vh-var(--header-height))]"
+      className="container grid h-[calc(100vh-var(--header-height))] "
     >
-      <div className="p-4">
-        <h1 className="text-4xl font-bold">{frontmatter.title}</h1>
+      <div className="w-full max-w-5xl p-4">
+        <h1 className=" text-4xl font-bold">{frontmatter.title}</h1>
         {/* date */}
         <p className="flex items-center justify-start text-sm text-stone-600 ">
           <ClockIcon className="mr-1 h-4 w-4" />
@@ -51,7 +51,7 @@ export default async function BlogPage({
         </div>
         {/* end of Categories */}
       </div>
-      <div className="prose max-w-none p-4">
+      <div className="prose prose-sm max-w-none p-4 sm:prose-base md:prose-lg">
         <div dangerouslySetInnerHTML={{ __html: content }}></div>
       </div>
     </section>

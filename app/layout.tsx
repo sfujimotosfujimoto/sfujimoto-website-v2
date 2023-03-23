@@ -4,6 +4,7 @@ import "./globals.css"
 
 import { Merriweather } from "next/font/google"
 
+import Footer from "@/components/Footer"
 import Navigation from "@/components/Navigation"
 
 const merriweather = Merriweather({
@@ -33,6 +34,7 @@ export default function RootLayout({
           <main className="mt-20 flex grow flex-col md:mt-0">
             <div className="container mx-auto max-w-4xl grow">{children}</div>
           </main>
+          <Footer />
         </div>
       </body>
     </html>
