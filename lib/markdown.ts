@@ -26,6 +26,22 @@ export async function markdownToHtml(
 ) {
   const { content, data } = matter(markdown)
 
+  const path3 = await glob("/var/task/node_modules/*")
+  console.log(
+    '🚀 lib/markdown.ts ~ 	🌈 path3 glob("/var/task/node_modules")✨ ',
+    path3
+  )
+  const path4 = await glob("/var/task/node_modules/shiki/*")
+  console.log(
+    '🚀 lib/markdown.ts ~ 	🌈 path3 glob("/var/task/node_modules/shiki/*")✨ ',
+    path4
+  )
+  const path5 = await glob("/var/task/node_modules/shiki/themes/*")
+  console.log(
+    '🚀 lib/markdown.ts ~ 	🌈 path3 glob("/var/task/node_modules/shiki/themes/*")✨ ',
+    path5
+  )
+
   let themeFilePath = "./themes/rose-pine-moon.json"
   if (process.env.NODE_ENV === "production") {
     themeFilePath = "/var/task/node_modules/shiki/themes/rose-pine-moon.json"
