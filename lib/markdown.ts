@@ -1,6 +1,7 @@
 import fs from "fs"
 import path from "path"
 
+import { glob } from "glob"
 import matter from "gray-matter"
 import rehypePrettyCode from "rehype-pretty-code"
 import rehypeRaw from "rehype-raw"
@@ -17,6 +18,11 @@ export async function markdownToHtml(
   images: { [key: string]: string }
 ) {
   const { content, data } = matter(markdown)
+  const themeFile = await glob("./themes/rose-pine-moon.json")
+
+  if (!themeFile[0]) {
+    throw new Error("Couldn't get theme file")
+  }
 
   const result = await unified()
     // parse markdown to syntax tree (MAST)
@@ -27,9 +33,7 @@ export async function markdownToHtml(
     .use(remarkRehype, { allowDangerousHtml: true })
     // add syntax highlight
     .use(rehypePrettyCode, {
-      theme: JSON.parse(
-        fs.readFileSync("./themes/rose-pine-moon.json", "utf-8")
-      ),
+      theme: JSON.parse(fs.readFileSync(themeFile[0], "utf-8")),
       onVisitHighlightedLine(node) {
         // Each line node by default has `class="line"`.
         node.properties.className.push("highlighted")
