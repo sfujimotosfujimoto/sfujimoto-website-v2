@@ -64,6 +64,10 @@ pre:has(> code):has(span.code-line) {
   margin-top: 0;
 }
 
+pre:has(code.code-highlight) {
+  background-color: #2d2d2d;
+}
+
 /* Highlighted line  */
 span.code-line.highlight-line {
   background-color: rgba(148, 148, 148, 0.3);

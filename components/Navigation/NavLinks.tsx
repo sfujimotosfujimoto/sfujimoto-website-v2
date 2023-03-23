@@ -1,6 +1,6 @@
 export default function NavLinks() {
   return (
-    <div className="text-sm md:flex-grow">
+    <div className="space-y-12 pt-4 text-xl md:flex-grow md:space-y-0 md:pt-0 md:text-sm">
       <a
         href="/about/"
         data-navlink

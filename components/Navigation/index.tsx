@@ -17,7 +17,7 @@ export default function Navigation() {
   }
 
   return (
-    <header className="fixed top-0 left-0 h-[var(--header-height)] w-full border-b border-stone-200 bg-white md:relative md:border-0">
+    <header className="fixed top-0 left-0 h-[var(--header-height)] w-full border-b border-stone-200 bg-white bg-opacity-90 md:relative md:border-0">
       <div className="container mx-auto h-full max-w-4xl">
         <MainNav handleClick={openSidebar} />
         <SidebarNav showSidebar={showSidebar} handleClick={closeSidebar} />
