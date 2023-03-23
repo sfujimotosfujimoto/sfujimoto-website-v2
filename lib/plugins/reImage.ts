@@ -29,6 +29,8 @@ export const reImage: Plugin<[Options]> = ({ images }) => {
       const newNode = node
       const imgNode = node.children[0] as ElementContent
 
+      if (!images) return node
+
       // checks if parent is <p> and first child is <img>
       if (node.tagName === "p" && imgNode.tagName === "img") {
         // TODO: why does it need the below code?

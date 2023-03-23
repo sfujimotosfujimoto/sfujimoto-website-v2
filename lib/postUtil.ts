@@ -74,6 +74,9 @@ async function getImagesFromSlug(
 
     const images: { [key: string]: string } = {}
 
+    if (data.length === 0) {
+      return {}
+    }
     data.forEach((d) => {
       images[path.basename(d.download_url)] = d.download_url
     })
