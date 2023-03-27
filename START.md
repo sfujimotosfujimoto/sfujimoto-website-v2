@@ -60,7 +60,7 @@ module.exports = {
 - in the terminal
 
 ```
-npm install -D postcss-nesting
+pnpm install -D postcss-nesting
 ```
 
 - in `postcss.config.js`
@@ -69,7 +69,6 @@ npm install -D postcss-nesting
 // postcss.config.js
 module.exports = {
   plugins: {
-    'postcss-import': {},
     'tailwindcss/nesting': 'postcss-nesting', // added
     tailwindcss: {},
     autoprefixer: {},
@@ -99,21 +98,86 @@ module.exports = {
 
 ## 5. Set Global font 
 
-```tsx
-import { Cormorant } from "next/font/google"
+- in `layout.tsx`
+  - add `variable` to your variable name to use in tailwind
+  - set `outfit.variable` in `<html>` so that you can use it anywhere in you HTML document
 
-const cormorant = Cormorant({
+```tsx
+import { Noto_Sans_JP, Outfit } from "next/font/google"
+
+const outfit = Outfit({
   subsets: ["latin"],
+  weight: ["200", "400", "700"],
+  variable: "--font-outfit",
 })
 
-export default function RootLayout({}) {  
+const notoJp = Noto_Sans_JP({
+  subsets: ["latin"],
+  weight: ["300", "400", "700"],
+  variable: "--font-notojp",
+})
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en">
-      <body className={cormorant.className}>
-        {children}
-      </body>
+    <html lang="en" className={`${outfit.variable} ${notoJp.variable}`}>
+      <body>{children}</body>
     </html>
   )
+}
+
+```
+
+- in `tailwind.config.js`
+  - set `theme.extend.fontFamily`
+
+```js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx}",
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+
+    // Or if using `src` directory:
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      fontFamily: {
+        outfit: ["var(--font-outfit)"],
+        notojp: ["var(--font-notojp)"],
+      },
+    },
+  },
+  plugins: [],
+}
+```
+
+
+- in `globals.css`
+  - set variables in `:root`
+
+```css
+:root {
+  font-family: var(--font-outfit), var(--font-notojp), sans-serif;
+}
+```
+
+### Problem
+Couldn't get the global font family to work.
+When I had 2 `var()` in `font-family` it cause a problem and the program couldn't find the font. 
+
+### Fix
+When I imported the second fallback font using `@import` in the global css file, and manually set in `globals.css` it worked.
+
+
+```css
+:root {
+  font-family: var(--font-outfit), "Noto Sans JP", sans-serif;
 }
 ```
 

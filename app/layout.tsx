@@ -18,6 +18,8 @@ export const metadata = {
   description: "sfujimoto website",
   icons: {
     icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/apple-icon.png",
   },
 }
 
